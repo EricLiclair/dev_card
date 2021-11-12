@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged, signInWithCredential, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithCredential, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
 
 const auth = getAuth();
 
@@ -28,6 +28,7 @@ function onSignIn(googleUser) {
 
             // Build Firebase credential with the Google ID token.
             const credential = GoogleAuthProvider.credential(GoogleAuthProvider.credentialFromResult(googleUser).idToken);
+
             // Sign in with credential from the Google user.
             signInWithCredential(auth, credential)
                 .then((res) => console.log("sign in successfull", res))
@@ -52,7 +53,7 @@ export function signInWithGoogle() {
     const GoogleProvider = new GoogleAuthProvider();
     const auth = getAuth();
     auth.languageCode = auth.useDeviceLanguage();
-    signInWithPopup(auth, GoogleProvider)
+    signInWithRedirect(auth, GoogleProvider)
         .then((result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
@@ -71,4 +72,5 @@ export function signInWithGoogle() {
             const credential = GoogleAuthProvider.credentialFromError(error);
             console.log(errorCode, errorMessage, email, credential);
         });
+
 }

@@ -1,18 +1,18 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { userContext } from '../../context/usercontext';
 import { Button } from '@mui/material';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { signInWithGoogle } from '../../utils/auth/signIn';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { Google } from '@mui/icons-material';
 export default function Auth() {
 
-    const { mode } = useParams();
-    const { user } = useContext(userContext);
+    const { user, loading } = useContext(userContext);
 
     return (
         <div>
-            {user ? `Already signed is as ${user.email}` : <Button variant='contained' onClick={signInWithGoogle}>Google</Button>}
+            {loading && <Button>Loading</Button>}
+            {user ? `Already signed is as ${user.email}` : <Button variant='contained' color='secondary' startIcon={<Google />} onClick={signInWithGoogle}>Google</Button>}
         </div >
     )
 }

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { userContext } from './context/usercontext';
 
 // theming
@@ -14,34 +13,23 @@ import {
 } from "react-router-dom";
 
 // views
-import { Auth, Home, Dashboard, Error } from './views';
+import { Auth, Home, Dashboard, Error, Navbar } from './views';
 
 // auth
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { Button } from '@mui/material';
+import { getAuth, signOut } from 'firebase/auth';
+import { Avatar, Button } from '@mui/material';
+import { GetUser } from './utils/auth/user';
 
 const auth = getAuth();
 
 function App() {
-  const [user, setUser] = useState(auth.currentUser);
-
-  useEffect(() => {
-    console.log(auth.currentUser)
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-        console.log("Anonymous User", user);
-      }
-    })
-  }, [user])
-
+  const [user, loading] = GetUser();
 
   return (
     <ThemeProvider theme={themeOptions}>
-      <userContext.Provider value={{ user }}>
-        <div className="App">
+      <userContext.Provider value={{ user, loading }}>
+        <Navbar />
+        <div className="App" style={{ padding: "1rem" }}>
           <Router>
             <Routes>
               <Route exact path='/dashboard' element={<Dashboard />} />
@@ -51,13 +39,9 @@ function App() {
               <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
           </Router>
-          {user && <Button onClick={() => signOut(auth).then(() => {
-            // Sign-out successful.
-            setUser(null);
-          }).catch((error) => {
-            // An error happened.
-          })} >Sign Out</Button>}
+          {user && <Button onClick={() => signOut(auth)} >Sign Out</Button>}
           <p>{JSON.stringify(user)}</p>
+          <Avatar src={user?.photoURL} sizes='large' />
         </div>
       </userContext.Provider>
     </ThemeProvider >

@@ -4,34 +4,53 @@ const themeOptions = createTheme({
     palette: {
         type: 'light',
         primary: {
-            main: 'rgb(19, 47, 76)',
-            light: '#555555',
-            dark: '#434343',
+            main: '#376CF5',
+            light: '#5AA2FB',
+            dark: '#3777F5',
         },
         secondary: {
-            main: '#ff9b21',
-            light: '#ffcd86',
-            dark: '#f4801c',
-            contrastText: 'rgba(255,255,255,0.87)',
+            main: '#111622',
+            dark: '#090b12',
+        },
+        background: {
+            default: '#F6F8FA',
+        },
+        text: {
+            secondary: '#858C9A',
+            primary: '#111622',
         },
     },
     typography: {
         fontFamily: 'Poppins',
     },
-    shape: {
-        borderRadius: 0,
-    },
+
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
                     border: 0,
-                    borderRadius: 0,
+                    borderRadius: 10,
                     height: 56,
                     margin: "0 1rem",
                 },
             },
         },
+        MuiTooltip: {
+            styleOverrides: {
+                tooltipArrow: true,
+                arrow: true,
+            }
+        },
+        MuiAppBar: {
+            defaultProps: {
+                color: 'transparent',
+                elevation: 0,
+                position: 'static'
+            }
+        }
+    },
+    shape: {
+        borderRadius: 10,
     },
 });
 
