@@ -25,13 +25,19 @@ const themeOptions = createTheme({
     },
 
     components: {
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    color: '#111622'
+                }
+            }
+        },
         MuiButton: {
             styleOverrides: {
                 root: {
                     border: 0,
                     borderRadius: 10,
                     height: 56,
-                    margin: "0 1rem",
                 },
             },
         },

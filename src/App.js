@@ -16,11 +16,17 @@ import {
 import { Auth, Home, Dashboard, Error, Navbar } from './views';
 
 // auth
-import { getAuth, signOut } from 'firebase/auth';
-import { Avatar, Button } from '@mui/material';
 import { GetUser } from './utils/auth/user';
+import { useTheme } from '@emotion/react';
 
-const auth = getAuth();
+
+const AppDiv = ({ children }) => {
+  const theme = useTheme(themeOptions);
+  return <ThemeProvider theme={theme}>
+    {children}
+  </ThemeProvider>
+}
+
 
 function App() {
   const [user, loading] = GetUser();
@@ -29,7 +35,7 @@ function App() {
     <ThemeProvider theme={themeOptions}>
       <userContext.Provider value={{ user, loading }}>
         <Navbar />
-        <div className="App" style={{ padding: "1rem" }}>
+        <div className="App" style={{ padding: "1rem", display: "flex", justifyContent: "center", }}>
           <Router>
             <Routes>
               <Route exact path='/dashboard' element={<Dashboard />} />
@@ -39,9 +45,6 @@ function App() {
               <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
           </Router>
-          {user && <Button onClick={() => signOut(auth)} >Sign Out</Button>}
-          <p>{JSON.stringify(user)}</p>
-          <Avatar src={user?.photoURL} sizes='large' />
         </div>
       </userContext.Provider>
     </ThemeProvider >

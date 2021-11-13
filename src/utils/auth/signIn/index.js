@@ -1,7 +1,6 @@
-import { getAuth, onAuthStateChanged, signInWithCredential, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithCredential, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 
 const auth = getAuth();
-
 
 function isUserEqual(googleUser, firebaseUser) {
     console.log(googleUser)
