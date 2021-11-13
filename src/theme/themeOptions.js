@@ -25,6 +25,12 @@ const themeOptions = createTheme({
     },
 
     components: {
+        MuiTooltip: {
+            defaultProps: {
+                arrow: true,
+                placement: 'top-right'
+            }
+        },
         MuiTypography: {
             styleOverrides: {
                 root: {

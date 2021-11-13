@@ -17,15 +17,6 @@ import { Auth, Home, Dashboard, Error, Navbar } from './views';
 
 // auth
 import { GetUser } from './utils/auth/user';
-import { useTheme } from '@emotion/react';
-
-
-const AppDiv = ({ children }) => {
-  const theme = useTheme(themeOptions);
-  return <ThemeProvider theme={theme}>
-    {children}
-  </ThemeProvider>
-}
 
 
 function App() {

@@ -1,11 +1,24 @@
-import { Google } from '@mui/icons-material';
-import { Button, createSvgIcon } from '@mui/material';
-import React from 'react';
+import { Button } from '@mui/material';
+import React, { useState } from 'react';
 import { signInWithGoogle } from '../../../utils/auth/signIn';
-import GoogleIcon from './google.svg';
+import { GoogleIcon } from '../../../assets/lottie';
+import { Google } from '@mui/icons-material';
 
-export default function GoogleSignInButton({ text = 'sign in' }) {
-    return (
-        <Button onClick={signInWithGoogle} ><img height={20} src={GoogleIcon} sx={{ padding: 10 }} />{text}</Button>
-    )
+export default function GoogleSignInButton({ text = 'sign in', ...props }) {
+    const [play, setPlay] = useState(false);
+    const animateStart = () => {
+        setPlay(true);
+    }
+    const animateStop = () => {
+        setPlay(false);
+    }
+    return <Button
+        {...props}
+        onMouseLeave={animateStop}
+        onMouseOver={animateStart}
+        onClick={signInWithGoogle}
+        startIcon={play ? <GoogleIcon /> : <Google sx={{ fontSize: 60 }} />}
+    >
+        {text}
+    </Button >
 }
