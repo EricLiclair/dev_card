@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { userContext } from '../../../../context/usercontext';
 import { Typography, Box, IconButton, Button, Tooltip } from '@mui/material';
 import { Hand } from '../../../../assets/lottie';
-
+import { signOut } from '../../../../utils/auth';
 export default function HomeWelcomeBack() {
     const { user, loading } = useContext(userContext);
     const firstName = user.displayName.split(" ")[0]
@@ -27,6 +27,7 @@ export default function HomeWelcomeBack() {
                     <Button href='/revise' variant='contained' color='primary'>Revise</Button>
                 </Tooltip>
             </Box>
+            <Button onClick={signOut}>Sign Out</Button>
         </Box >
     )
 }

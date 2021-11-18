@@ -14,6 +14,7 @@ const themeOptions = createTheme({
         },
         background: {
             default: '#F6F8FA',
+            paper: '#FFFFFF',
         },
         text: {
             secondary: '#858C9A',
@@ -28,7 +29,7 @@ const themeOptions = createTheme({
         MuiTooltip: {
             defaultProps: {
                 arrow: true,
-                placement: 'top-right'
+                placement: 'bottom-end'
             }
         },
         MuiTypography: {
@@ -46,12 +47,6 @@ const themeOptions = createTheme({
                     height: 56,
                 },
             },
-        },
-        MuiTooltip: {
-            styleOverrides: {
-                tooltipArrow: true,
-                arrow: true,
-            }
         },
         MuiAppBar: {
             defaultProps: {

@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import React, { useState } from 'react';
-import { signInWithGoogle } from '../../../utils/auth/signIn';
+import { signInWithGoogle } from '../../../utils/auth';
 import { GoogleIcon } from '../../../assets/lottie';
 import { Google } from '@mui/icons-material';
 
