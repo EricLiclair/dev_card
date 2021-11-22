@@ -1,5 +1,5 @@
 import { Box, CircularProgress } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, } from "react";
 import IScroll from "react-infinite-scroll-component";
 import QuestionListItem from "../questionlistitem";
 

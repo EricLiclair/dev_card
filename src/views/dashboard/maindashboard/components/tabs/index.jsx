@@ -38,16 +38,16 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(({ theme }
 
 
 
-const TABS_DATA = [
-    {
-        header: "ALL QUESTIONS",
-        component: <p>All questions</p>
-    },
-    {
-        header: "SOLVED QUESTIONS",
-        component: <p>Solved questions</p>
-    }
-]
+// const TABS_DATA = [
+//     {
+//         header: "ALL QUESTIONS",
+//         component: <p>All questions</p>
+//     },
+//     {
+//         header: "SOLVED QUESTIONS",
+//         component: <p>Solved questions</p>
+//     }
+// ]
 
 
 export default function NavTabs({ tabData }) {

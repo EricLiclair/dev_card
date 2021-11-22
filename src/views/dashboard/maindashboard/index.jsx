@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, } from 'react'
 import { Box, Typography, } from '@mui/material';
 import { dashBoardContext } from './context/dashboardContext';
 import NavTabs from './components/tabs';
@@ -9,25 +9,24 @@ import StyledChip from './components/chip';
 import { filterData } from './util'
 import InfinityScroll from './components/infinitescroll';
 import InfiniteScroll from './components/infinitescroll2.0'
-import { userContext } from '../../../context/usercontext';
 
-let TABS_MAP = [
-    {
-        title: "ALL QUESTIONS",
-        component: "All questions",
-    },
-    {
-        title: "SOLVED QUESTIONS",
-        component: "Solved questions",
-    },
-]
+// let TABS_MAP = [
+//     {
+//         title: "ALL QUESTIONS",
+//         component: "All questions",
+//     },
+//     {
+//         title: "SOLVED QUESTIONS",
+//         component: "Solved questions",
+//     },
+// ]
 
 const getDisplayDataFromAllQuestionMap = (questionMap) => {
     let data = [];
     Object.keys(questionMap).map((qid, idx) => {
         let queData = questionMap[qid];
         queData = { ...queData, qid };
-        data.push(queData)
+        data.push(queData);
     });
 
     return data;
