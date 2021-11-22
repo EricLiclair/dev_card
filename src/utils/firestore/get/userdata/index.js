@@ -10,6 +10,7 @@ export const GetUserData = (uid) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
     useEffect(() => {
         async function getData_() {
             const docRef = doc(db, "users", uid);
@@ -38,7 +39,8 @@ export const GetUserData = (uid) => {
                     })
             }
         }
-        getData_();
+        if (!uid) return [data, loading, error];
+        else getData_();
     }, [uid])
     return [data, loading, error];
 }

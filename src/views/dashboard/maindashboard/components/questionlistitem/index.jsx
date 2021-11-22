@@ -33,26 +33,13 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-const _getCompletion = (qid) => {
-    console.log(COMPLETED_QUESTIONS[qid])
-    return COMPLETED_QUESTIONS[qid] ? true : false
-}
 
-const GetCompletion = (qid) => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setData(_getCompletion(qid))
-        setLoading(false);
-    }, [qid]);
 
-    return [data, loading];
-}
 
-export default function QuestionListItem({ questionData }) {
-    const { user } = useContext(userContext);
+export default function QuestionListItem({ questionData, type = "all" }) {
+    const { user, userData } = useContext(userContext);
     const [expanded, setExpanded] = useState(false);
-    const [completed, completionLoading] = GetCompletion(questionData.qid);
+    const [completed, setCompleted] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -61,21 +48,28 @@ export default function QuestionListItem({ questionData }) {
     const animateCompletion = () => {
         setPlay(true);
     }
-    console.log(play, completed)
 
     const markAsCompleted = () => {
         addSolvedQuestion(user.uid, questionData.qid, "some important note")
             .then((res) => {
                 console.log("ADDED QUESTION TO SOLVED LIST", res)
-                
+                setCompleted(true);
             })
     }
+
+    useEffect(() => {
+
+        if (userData?.completed[questionData.qid] ? true : false) {
+            setCompleted(true);
+        }
+
+    }, [user, userData, completed])
     return (
         <Card elevation={0} sx={{ margin: "1rem 0" }}>
             <CardHeader
                 action={
 
-                    completionLoading ? <CircularProgress sixe='16' />
+                    !userData ? <CircularProgress sixe='16' />
                         :
                         (
                             !completed ? <IconButton onClick={markAsCompleted} aria-label="add to favorites"><Check onClick={animateCompletion} /></IconButton>

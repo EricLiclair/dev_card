@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Box, Typography, } from '@mui/material';
 import { dashBoardContext } from './context/dashboardContext';
 import NavTabs from './components/tabs';
@@ -7,9 +7,22 @@ import TOPICS from '../../../questions/topics';
 import ALL_QUESTIONS from '../../../questions/loveBabbar'
 import StyledChip from './components/chip';
 import { filterData } from './util'
-import InfiniteScroll from './components/infinitescroll';
+import InfinityScroll from './components/infinitescroll';
+import InfiniteScroll from './components/infinitescroll2.0'
+import { userContext } from '../../../context/usercontext';
 
-const getDisplayDataFromQuestionMap = (questionMap) => {
+let TABS_MAP = [
+    {
+        title: "ALL QUESTIONS",
+        component: "All questions",
+    },
+    {
+        title: "SOLVED QUESTIONS",
+        component: "Solved questions",
+    },
+]
+
+const getDisplayDataFromAllQuestionMap = (questionMap) => {
     let data = [];
     Object.keys(questionMap).map((qid, idx) => {
         let queData = questionMap[qid];
@@ -20,8 +33,18 @@ const getDisplayDataFromQuestionMap = (questionMap) => {
     return data;
 }
 
+const getDisplayDataFromSolvedQuestionMap = (solvedQuestions) => {
+    let data = [];
+    Object.keys(solvedQuestions).map((qid, idx) => {
+        return data.push({ ...ALL_QUESTIONS[qid], qid, completed: true });
+    })
 
-export default function MainDashboard() {
+    return data;
+}
+
+
+export default function MainDashboard({ userData }) {
+    // const { userData } = useContext(userContext);
     const [currentTab, setCurrentTab] = useState(0);
     const [filterTags, setFilterTags] = useState([]);
     const [displayData, setDisplayData] = useState(null)
@@ -41,23 +64,23 @@ export default function MainDashboard() {
         }
     }
 
-    const TABS_MAP = [
+    let TABS_MAP = [
         {
             title: "ALL QUESTIONS",
-            component: "All questions",
+            component: <InfiniteScroll data={displayData} />,
         },
         {
             title: "SOLVED QUESTIONS",
-            component: "Solved questions",
+            component: <InfinityScroll data={displayData} />,
         },
     ]
 
-
     useEffect(() => {
+        console.log("Loading dashboard", userData)
         if (currentTab === 0) {
-            setDisplayData(filterData(getDisplayDataFromQuestionMap(ALL_QUESTIONS), filterTags));
+            setDisplayData([...filterData(getDisplayDataFromAllQuestionMap(ALL_QUESTIONS), filterTags)]);
         } else if (currentTab === 1) {
-            setDisplayData(filterData(getDisplayDataFromQuestionMap({}), filterTags));
+            setDisplayData([...filterData(getDisplayDataFromSolvedQuestionMap(userData?.completed), filterTags)]);
         }
     }, [filterTags, currentTab])
 
@@ -82,8 +105,8 @@ export default function MainDashboard() {
                     />
                 })}
             </Box>
-            {displayData && <InfiniteScroll data={displayData} />}
-
+            {/* {displayData && <InfiniteScroll data={displayData} />} */}
+            {displayData && TABS_MAP[currentTab].component}
         </Box>
     )
 }

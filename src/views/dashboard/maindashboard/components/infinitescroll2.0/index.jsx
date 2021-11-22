@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import IScroll from "react-infinite-scroll-component";
 import QuestionListItem from "../questionlistitem";
 
-export default function InfinityScroll({ data }) {
+export default function InfiniteScroll({ data }) {
     const [items, setItems] = useState(Array.from({ length: 10 }))
     const [hasMore, setHasMore] = useState(true);
     const fetchMoreData = () => {
@@ -34,7 +34,7 @@ export default function InfinityScroll({ data }) {
                 }
             >
                 {items.map((i, idx) => (
-                    data[idx] ? <QuestionListItem key={idx} questionData={data[idx]} type="solved" /> : null
+                    data[idx] ? <QuestionListItem key={idx} questionData={data[idx]} /> : null
                 ))}
             </IScroll>
         </Box>
