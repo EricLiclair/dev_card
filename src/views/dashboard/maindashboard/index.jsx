@@ -26,7 +26,7 @@ const getDisplayDataFromAllQuestionMap = (questionMap) => {
     Object.keys(questionMap).map((qid, idx) => {
         let queData = questionMap[qid];
         queData = { ...queData, qid };
-        data.push(queData);
+        return data.push(queData);
     });
 
     return data;
@@ -75,13 +75,12 @@ export default function MainDashboard({ userData }) {
     ]
 
     useEffect(() => {
-        console.log("Loading dashboard", userData)
         if (currentTab === 0) {
             setDisplayData([...filterData(getDisplayDataFromAllQuestionMap(ALL_QUESTIONS), filterTags)]);
         } else if (currentTab === 1) {
             setDisplayData([...filterData(getDisplayDataFromSolvedQuestionMap(userData?.completed), filterTags)]);
         }
-    }, [filterTags, currentTab])
+    }, [filterTags, currentTab, userData?.completed])
 
     return (
         <Box sx={{ width: '100%', maxWidth: 500, minWidth: 350 }}>

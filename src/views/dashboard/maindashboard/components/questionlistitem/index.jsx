@@ -71,7 +71,7 @@ export default function QuestionListItem({ questionData, type = "all" }) {
             setCompleted(true);
         }
 
-    }, [user, userData, completed])
+    }, [user, userData, completed, questionData.qid])
 
 
 
