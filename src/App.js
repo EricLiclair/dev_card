@@ -1,8 +1,8 @@
-import { userContext } from './context/usercontext';
+import { userContext } from "./context/usercontext";
 
 // theming
-import { ThemeProvider } from '@mui/material/styles';
-import themeOptions from './theme/themeOptions';
+import { ThemeProvider } from "@mui/material/styles";
+import themeOptions from "./theme/themeOptions";
 
 // routing
 import {
@@ -13,25 +13,35 @@ import {
 } from "react-router-dom";
 
 // views
-import { Auth, Home, Dashboard, Error, Navbar } from './views';
+import { Auth, Home, Dashboard, Error, Navbar, Profile, Revise } from "./views";
 
 // auth
-import { GetUser } from './utils/auth/user';
-import { getUserData } from './utils/firestore';
-
+import { GetUser } from "./utils/auth/user";
+import { getUserData } from "./utils/firestore";
 
 function App() {
   const [user, loading] = GetUser();
   const [userData, userDataIsLoading] = getUserData(user?.uid);
-  console.log("LOADING APP")
+  console.log("LOADING APP");
   return (
     <ThemeProvider theme={themeOptions}>
-      <userContext.Provider value={{ user, loading, userData, userDataIsLoading }}>
+      <userContext.Provider
+        value={{ user, loading, userData, userDataIsLoading }}
+      >
         <Navbar />
-        <div className="App" style={{ padding: "1rem", display: "flex", justifyContent: "center", }}>
+        <div
+          className="App"
+          style={{ padding: "1rem", display: "flex", justifyContent: "center" }}
+        >
           <Router>
             <Routes>
-              <Route exact path='/dashboard' element={<Dashboard userData={userData} />} />
+              <Route
+                exact
+                path="/dashboard"
+                element={<Dashboard userData={userData} />}
+              />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/revise" element={<Revise />} />
               <Route path="/auth" element={<Auth />} />
               <Route exact path="/404" element={<Error />} />
               <Route exact path="/" element={<Home />} />
@@ -40,7 +50,7 @@ function App() {
           </Router>
         </div>
       </userContext.Provider>
-    </ThemeProvider >
+    </ThemeProvider>
   );
 }
 
