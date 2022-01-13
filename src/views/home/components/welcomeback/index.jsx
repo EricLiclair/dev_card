@@ -1,8 +1,7 @@
+import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
 import React, { useContext } from "react";
-import { userContext } from "../../../../context/usercontext";
-import { Typography, Box, IconButton, Button, Tooltip } from "@mui/material";
 import { Hand } from "../../../../assets/lottie";
-import { signOut } from "../../../../utils/auth";
+import { userContext } from "../../../../context/usercontext";
 export default function HomeWelcomeBack() {
   const { user, loading } = useContext(userContext);
   const firstName = user.displayName.split(" ")[0];
